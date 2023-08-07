@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>UI-generate</title>
+	</head>
+Генерация предметов для ивентов.
+	<body>
+		<div>
+			<div id="selector1">
+				<form name="first">
+					Выберите уровень сложности:<br>
+					<select name="difficulty" id="selectD">
+						<option value="1">Судьба благоволит</option>
+						<option value="2">Судьба справедлива</option>
+						<option value="3">Судьба жестока</option>
+					</select>
+					<input id="but1" type="button" onclick="button1()" value="Выбрать">
+				</form>
+			</div>
+			<div>
+				Введите количество игроков:
+				<input id="playersNUM" type="text" />
+			</div>
+			<input id="but2" type="button" onclick="generate()" value="Сгенерировать предметы">
+			Ваши предметы:
+			<p id="out47"></p>
+			<p id="out"></p>
+			<p id="outfin"></p>
+            <div id="BYLIZ">
+			    <p id="BY"></p>
+            </div>
+		</div>
+		<script>
+            document.getElementById("BYLIZ").style.margin = "700px 0px 0px 0px";
+            const LIZ = document.getElementById("BY");
+            LIZ.style.color = "white";
+            document.getElementById("playersNUM").disabled = true;
+            document.getElementById("but2").disabled = true;
+
+
+            function button1() {
+                document.getElementById('BY').innerHTML = "Создано Lizard ID: 76561199481379411";
+				document.getElementById("selectD").disabled = true;
+				document.getElementById("but1").disabled = true;
+                document.getElementById("playersNUM").disabled = false;
+                document.getElementById("but2").disabled = false;
+			}
+
+			let itemlistEASY = ['Трава', 'Дерево', 'Камень', 'Хрусталь', 'Кора', 'Глина', 'Каменная соль', 'Железная руда', 'Обсидиан', 'Оловянная руда', 'Медная руда', 'Оникс', 'Старый эльдариум', 'Кроникс', 'Берилиум',
+				'Необработанный топаз', 'Необработанный изумруд', 'Необработанный рубин', 'Необработанный сапфир', 'Кварц', 'Необработанный Аметист', 'Тонкая шкура', 'Толстая шкура', 'Мех', 'Когти', 'Кости ', 'Клыки', 'Ихор',
+				'Смола', 'Слиток стали', 'Слиток закаленной стали', 'Слиток туранской стали', 'Алхимическая основа', 'Чернила', 'Дубленая кожа', 'Шкура "Чешуя дракона"', 'Каменная шкура', 'Вспомогательный предмет - расходник',
+				'Зелье \ Лекарство','Cеребрянные монеты', 'Cеребрянные монеты', 'Уникальное оружие', 'Уникальный аксессуар', 'Уникальный доспех', 'Дополнительные предметы'];
+			let itemlistNORM = ['Трава', 'Дерево', 'Камень', 'Хрусталь', 'Кора', 'Глина', 'Мясо', 'Лед', 'Мед', 'Каменная соль', 'Железная руда', 'Серебряная руда', 'Обсидиан', 'Оловянная руда', 'Медная руда', 'Оникс',
+				'Эвериумная руда', 'Алюминий ', 'Ванадий', 'Карбон', 'Титан', 'Старый эльдариум', 'Кроникс', 'Берилиум', 'Звёздная руда', 'Необработанный топаз', 'Необработанный изумруд', 'Необработанный рубин',
+				'Необработанный сапфир', 'Кварц', 'Необработанный Аметист', 'Тонкая шкура', 'Толстая шкура', 'Мех', 'Мех гиены', 'Кошачий мех', 'Шкура летучей мыши', 'Шкура рептилии', 'Шкура слона', 'Шкура носорога',
+				'Шкура медведя', 'Когти', 'Кости ', 'Клыки', 'Рог', 'Сера', 'Ихор', 'Смола', 'Кость дракона', 'Черный лед', 'Слиток стали', 'Слиток закаленной стали', 'Слиток звездного металла', 'Обсидиановый сплав',
+				'Слиток Эльдариума', 'Слиток туранской стали', 'Алхимическая основа', 'Порошок скверны', 'Чернила', 'Мистическая пыль', 'Алхимические флюиды', 'Порошок проклятий', 'Дубленая кожа', 'Эбонитовый шелк',
+				'Железное дерево', 'Мягкое дерево Гареан', 'Шкура "Чешуя дракона"', 'Каменная шкура', 'Вспомогательный предмет - расходник', 'Зелье \ Лекарство', 'Cеребрянные монеты', 'Cеребрянные монеты',
+				'Уникальное оружие', 'Уникальный аксессуар', 'Дополнительные предметы'];
+            let itemlistHARD = ['Трава', 'Дерево', 'Камень', 'Хрусталь', 'Кора', 'Глина', 'Мясо', 'Лед', 'Паутина', 'Каменная соль', 'Мед', 'Железная руда', 'Серебряная руда', 'Обсидиан', 'Оловянная руда', 'Медная руда', 'Оникс',
+                'Эвериумная руда', 'Алюминий ', 'Ванадий', 'Карбон', 'Титан', 'Золотая руда', 'Старый эльдариум', 'Кроникс', 'Берилиум', 'Мышьяк', 'Звёздная руда', 'Старый эльдариум', 'Необработанный топаз',
+                'Необработанный изумруд', 'Необработанный рубин', 'Необработанный сапфир', 'Кварц', 'Необработанный Аметист', 'Необработанный Алмаз', 'Тонкая шкура', 'Толстая шкура', 'Мех', 'Мех гиены', 'Кошачий мех',
+                'Шкура летучей мыши', 'Шкура рептилии', 'Шкура слона', 'Шкура носорога', 'Шкура медведя', 'Череп', 'Когти', 'Кости ', 'Клыки', 'Рог', 'Сера', 'Ихор', 'Смола', 'Кость дракона', 'Рог дракона', 'Чешуя Дагона',
+                'Черный лед', 'Слиток стали', 'Слиток закаленной стали', 'Слиток звездного металла', 'Обсидиановый сплав', 'Кхарская сталь', 'Слиток Эльдариума', 'Слиток туранской стали', 'Слиток электрума', 'Титановый слиток',
+                'Облачный слиток', 'Слиток древней крови', 'Слиток стали преисподни', 'Алхимическая основа', 'Порошок скверны', 'Чернила', 'Мистическая пыль', 'Звездная эссенция', 'Алхимические флюиды', 'Порошок проклятий',
+                'Артефактное масло', 'Дубленая кожа', 'Эбонитовый шелк', 'Лазуритовый шелк', 'Железное дерево', 'Мягкое дерево Гареан', 'Соленая Сталь', 'Лунный жемчуг', 'Кожа морской змеи', 'Сильный лечебный отвар',
+                'Шкура "Чешуя дракона"', 'Каменная шкура', 'Вспомогательный предмет - расходник', 'Зелье \ Лекарство', 'Особое масло для закалки', 'Cеребрянные монеты', 'Cеребрянные монеты', 'Уникальное оружие', 'Уникальный доспех',
+                'Уникальный аксессуар', 'Брошеный питомец', 'Яйцо фамильяра', 'Дополнительные предметы'];
+            function generate() {
+
+                var select = document.getElementById("selectD");
+                var dif = select.value;
+
+                document.getElementById('BY').innerHTML = "Создано Lizard ID: 76561199481379411";
+                document.getElementById("playersNUM").disabled = true;
+                document.getElementById("but2").disabled = true;
+				var str = document.getElementById('playersNUM').value;
+                let players = Number(str);
+				let list = [];
+				let i = 0;
+                let listD = [];
+                let q = 0;
+                if (dif == 1) {
+                    document.getElementById('BY').innerHTML = "Создано Lizard ID: 76561199481379411";
+					let space = Math.floor(itemlistEASY.length / (players + 1));
+                    let min = 0;
+					let max = space;
+					let NUM = 0;
+                    max = itemlistEASY.length;
+                    min = max - space;
+					NUM = players + 1;
+					for (let Y = 0; Y < NUM; Y++) {
+						var rand = Math.floor(min + Math.random() * (max + 1 - min));
+
+                        listD[q] = max;
+                        q = q + 1;
+                        listD[q] = min;
+                        q = q + 1;
+                        let F = 0;
+                        if (F = 0) {
+                            F++
+                        } else {
+                            listD[q] = "||";
+                            q = q + 1;
+                            F = 0;
+                        }
+
+                        if (min <= 0 || (min - space - 1) <= 0) {
+                            max = LASTmax;
+                            min = LASTmin;
+                        }
+                        else {
+                            var LASTmin = 0;
+                            var LASTmax = min - space - 1;
+                            min = min - space - 1;
+                            max = max - space - 1;
+						}
+
+						if (rand >= 45)
+							rand = 44;
+						
+						list[i] = itemlistEASY[rand];
+						i = i + 1;
+					}
+					document.getElementById('out').innerHTML = "Диапазоны: " + listD.join(', ');
+					document.getElementById('outfin').innerHTML = "Выбранные предметы: " + list.join(', ');
+				}
+                if (dif == 2) {
+                    document.getElementById('BY').innerHTML = "Создано Lizard ID: 76561199481379411";
+                    let space = Math.floor(itemlistEASY.length / (players + 2));
+                    let min = 0;
+                    let max = space;
+                    let NUM = 0;
+                    max = itemlistEASY.length;
+                    min = max - space;
+                    NUM = players + 2;
+                    for (let Y = 0; Y < NUM; Y++) {
+                        var rand = Math.floor(min + Math.random() * (max + 1 - min));
+
+                        listD[q] = max;
+                        q = q + 1;
+                        listD[q] = min;
+                        q = q + 1;
+                        let F = 0;
+                        if (F = 0) {
+                            F++
+                        } else {
+                            listD[q] = "||";
+                            q = q + 1;
+                            F = 0;
+                        }
+
+                        if (min <= 0 || (min - space - 1) <= 0) {
+                            max = LASTmax;
+                            min = LASTmin;
+                        }
+                        else {
+                            var LASTmin = 0;
+                            var LASTmax = min - space - 1;
+                            min = min - space - 1;
+                            max = max - space - 1;
+                        }
+
+                        if (rand >= 75)
+                            rand = 74;
+
+                        list[i] = itemlistEASY[rand];
+                        i = i + 1;
+                    }
+                    document.getElementById('out').innerHTML = "Диапазоны: " + listD.join(', ');
+                    document.getElementById('outfin').innerHTML = "Выбранные предметы: " + list.join(', ');
+				}
+                if (dif == 3) {
+                    document.getElementById('BY').innerHTML = "Создано Lizard ID: 76561199481379411";
+                    let space = Math.floor(itemlistEASY.length / (players + 3));
+                    let min = 0;
+                    let max = space;
+                    let NUM = 0;
+                    max = itemlistEASY.length;
+                    min = max - space;
+                    NUM = players + 3;
+                    for (let Y = 0; Y < NUM; Y++) {
+                        var rand = Math.floor(min + Math.random() * (max + 1 - min));
+
+                        listD[q] = max;
+                        q = q + 1;
+                        listD[q] = min;
+                        q = q + 1;
+                        let F = 0;
+                        if (F = 0) {
+                            F++
+                        } else {
+                            listD[q] = "||";
+                            q = q + 1;
+                            F = 0;
+                        }
+
+                        if (min <= 0 || (min - space - 1) <= 0) {
+                            max = LASTmax;
+                            min = LASTmin;
+                        }
+                        else {
+                            var LASTmin = 0;
+                            var LASTmax = min - space - 1;
+                            min = min - space - 1;
+                            max = max - space - 1;
+                        }
+
+                        if (rand >= 100)
+                            rand = 99;
+
+                        list[i] = itemlistEASY[rand];
+                        i = i + 1;
+                    }
+                    document.getElementById('out').innerHTML = "Диапазоны: " + listD.join(', ');
+                    document.getElementById('outfin').innerHTML = "Выбранные предметы: " + list.join(', ');
+                }
+			}
+		</script>
+	</body>
+</html>
